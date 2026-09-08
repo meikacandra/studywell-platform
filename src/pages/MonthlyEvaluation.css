@@ -1,0 +1,25 @@
+@import "./Assessment.css";
+
+/* Specific styles for Monthly Evaluation if needed */
+.evaluation-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f5f9;
+}
+
+.evaluation-topbar {
+  height: 64px;
+  background-color: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
+}
+
+.evaluation-main-content {
+  flex: 1;
+  display: flex;
+}
