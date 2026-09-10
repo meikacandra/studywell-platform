@@ -52,7 +52,6 @@ const Navbar = () => {
     { name: "Dashboard", path: "/" },
     { name: "Learning Mapping & Progress", path: "/study-mapping" },
     { name: "Well-being", path: "/wellbeing" },
-    { name: "Profile", path: "/profile" },
   ];
 
   const checkIsActive = (itemPath) => {
@@ -253,16 +252,6 @@ const Navbar = () => {
 
                   {/* Menu Options */}
                   <div className="dropdown-menu-list">
-                    <button 
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                        navigate("/profile");
-                      }}
-                      className="dropdown-item-btn"
-                    >
-                      <User size={16} />
-                      <span>Profil</span>
-                    </button>
 
                     <button 
                       onClick={() => {

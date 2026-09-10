@@ -16,7 +16,6 @@ import MonthlyEvaluation from "./pages/MonthlyEvaluation";
 import Dashboard from "./pages/Dashboard";
 import StudyMapping from "./pages/StudyMapping";
 import Wellbeing from "./pages/Wellbeing";
-import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -29,7 +28,7 @@ function App() {
           <Route path="/study-mapping" element={<StudyMapping />} />
           <Route path="/wellbeing" element={<Wellbeing />} />
           <Route path="/well-being" element={<Wellbeing />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Dashboard />} />
 
           {/* Halaman Landing, Auth & Evaluasi dari Tim FE */}
           <Route path="/landing" element={<Home />} />

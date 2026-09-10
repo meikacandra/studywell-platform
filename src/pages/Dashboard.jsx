@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import ReassessmentCard from "../components/ReassessmentCard";
 import { CheckCircle2, Lock, ArrowRight, RefreshCw, Flame, Calendar } from "lucide-react";
 import { useUser } from "../context/UserContext";
 import { getUserMaterials, getPriorityMaterial } from "../data/studyWellData";
@@ -90,6 +91,9 @@ const Dashboard = () => {
                   <ArrowRight size={18} />
                 </button>
               </div>
+
+              {/* Card Evaluasi Berkala Mendatang (Re-assessment) */}
+              <ReassessmentCard />
 
               {/* Alur Belajar Prioritas Card */}
               <div className="dashboard-card priority-card">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Moon, ListTodo, Zap, Info, ArrowRight, Clock, RotateCcw, Smartphone, HeartPulse, Sparkles, Activity, Calendar, BarChart2 } from "lucide-react";
+import { Moon, ListTodo, Zap, Info, ArrowRight, Clock, RotateCcw, Smartphone, HeartPulse, Sparkles, Activity } from "lucide-react";
 import {
   calculateStudyStrain,
   formatDuration,
@@ -9,21 +9,13 @@ import {
   getEnergyLabel
 } from "../utils/studyStrainEngine";
 import { generateIntegratedRecommendation } from "../data/studyWellData";
-import { 
-  getUserLearningHistory, 
-  calculateHistoryMetrics, 
-  saveCheckinToHistory 
-} from "../data/userLearningData";
+import { saveCheckinToHistory } from "../data/userLearningData";
 import { useUser } from "../context/UserContext";
-import LearningCorrelationChart from "../components/LearningCorrelationChart";
 import "./Wellbeing.css";
 
 const Wellbeing = () => {
   const navigate = useNavigate();
   const { currentUser } = useUser();
-
-  // Tab state: 'history' (Riwayat Kesiapan & Pola Belajar) | 'checkin' (Daily Micro Check-in)
-  const [wellbeingTab, setWellbeingTab] = useState("history");
 
   // Form states matching single source of truth specification
   const [sleepHours, setSleepHours] = useState(6.5);
@@ -37,13 +29,6 @@ const Wellbeing = () => {
 
   // View state: 'checkin' | 'result'
   const [viewState, setViewState] = useState("checkin");
-
-  // Filter state for history tab ('7hari' | '14hari' | 'bulanini')
-  const [historyFilter, setHistoryFilter] = useState("7hari");
-
-  // Fetch dynamic user history and calculated metrics for active logged-in user
-  const activeUserHistory = getUserLearningHistory(currentUser.id, historyFilter);
-  const metrics = calculateHistoryMetrics(activeUserHistory.data);
 
   // Compute adaptive study strain calculation dynamically
   const strainAnalysis = calculateStudyStrain({
@@ -78,30 +63,9 @@ const Wellbeing = () => {
       <main className="wellbeing-container">
         <div className="wellbeing-content">
 
-          {/* Sub Navigation Bar for Switching Views */}
-          <div className="wellbeing-sub-tabs">
-            <button
-              onClick={() => setWellbeingTab("checkin")}
-              className={`wb-tab-btn ${wellbeingTab === "checkin" ? "active-wb-tab" : ""}`}
-            >
-              <Activity size={16} />
-              <span>Daily Micro Check-in</span>
-            </button>
-            <button
-              onClick={() => setWellbeingTab("history")}
-              className={`wb-tab-btn ${wellbeingTab === "history" ? "active-wb-tab" : ""}`}
-            >
-              <BarChart2 size={16} />
-              <span>Riwayat &amp; Pola Belajar</span>
-            </button>
-          </div>
-
-          {/* TAB 1: DAILY MICRO CHECK-IN & RESULT */}
-          {wellbeingTab === "checkin" && (
-            <>
-              {/* VIEW 1: EXACT WELL-BEING CHECK-IN UI/UX FORM */}
-              {viewState === "checkin" && (
-                <div className="wellbeing-card exact-checkin-card">
+          {/* VIEW 1: EXACT WELL-BEING CHECK-IN UI/UX FORM */}
+          {viewState === "checkin" && (
+            <div className="wellbeing-card exact-checkin-card">
               {/* Top Pill Badge */}
               <div className="card-top-center">
                 <span className="daily-micro-badge">Daily Micro Check-in</span>
@@ -505,81 +469,6 @@ const Wellbeing = () => {
               </div>
             </div>
           )}
-            </>
-          )}
-
-          {/* TAB 2: RIWAYAT KESIAPAN & POLA BELAJAR (WELL-BEING HISTORY) */}
-          {wellbeingTab === "history" && (
-            <div className="wb-history-wrapper">
-              {/* Header Row with Title, User Switcher Pill & Filter Chips */}
-              <div className="wb-history-header-row">
-                <div>
-                  <h1 className="wb-history-title">Riwayat Kesiapan &amp; Pola Belajar</h1>
-                  <p className="wb-history-subtitle">
-                    Pantau keseimbangan antara jam tidur, jam belajar, dan risiko kelelahan!
-                  </p>
-                </div>
-
-                {/* Filter Chips */}
-                <div className="filter-chips-row">
-                  <button
-                    onClick={() => setHistoryFilter("7hari")}
-                    className={`filter-chip ${historyFilter === "7hari" ? "active-chip" : ""}`}
-                  >
-                    7 Hari Terakhir
-                  </button>
-                  <button
-                    onClick={() => setHistoryFilter("14hari")}
-                    className={`filter-chip ${historyFilter === "14hari" ? "active-chip" : ""}`}
-                  >
-                    14 Hari Terakhir
-                  </button>
-                  <button
-                    onClick={() => setHistoryFilter("bulanini")}
-                    className={`filter-chip ${historyFilter === "bulanini" ? "active-chip" : ""}`}
-                  >
-                    Bulan Ini
-                  </button>
-                </div>
-              </div>
-
-              {/* 3 Dynamic Summary Metric Cards */}
-              <div className="history-cards-grid">
-                {/* Card 1: Rata-rata Tidur / Malam */}
-                <div className="hist-card">
-                  <span className="hist-card-label">Rata-rata Tidur / Malam</span>
-                  <span className="hist-card-val">{metrics.avgSleep} Jam</span>
-                  <span className={`hist-card-badge ${metrics.sleepBadgeClass}`}>{metrics.sleepBadgeText}</span>
-                </div>
-
-                {/* Card 2: Rata-rata Belajar Harian */}
-                <div className="hist-card">
-                  <span className="hist-card-label">Rata-rata Belajar Harian</span>
-                  <span className="hist-card-val">{metrics.avgStudy} Jam</span>
-                  <span className={`hist-card-badge ${metrics.studyBadgeClass}`}>{metrics.studyBadgeText}</span>
-                </div>
-
-                {/* Card 3: Indeks Kesiapan Belajar */}
-                <div className="hist-card">
-                  <span className="hist-card-label">Indeks Kesiapan Belajar</span>
-                  <span className="hist-card-val">{metrics.readinessCount} dari {metrics.totalDays} Hari</span>
-                  <span className={`hist-card-badge ${metrics.readinessBadgeClass}`}>{metrics.readinessBadgeText}</span>
-                </div>
-              </div>
-
-              {/* Main Dynamic Chart Component */}
-              <LearningCorrelationChart 
-                data={activeUserHistory.data}
-                title={`Korelasi Jam Tidur vs Durasi Belajar (${
-                  historyFilter === "7hari" 
-                    ? "7 Hari Terakhir" 
-                    : historyFilter === "14hari" 
-                    ? "14 Hari Terakhir" 
-                    : "Bulan Ini"
-                })`}
-              />
-            </div>
-          )}
 
         </div>
       </main>
@@ -588,5 +477,3 @@ const Wellbeing = () => {
 };
 
 export default Wellbeing;
-
-

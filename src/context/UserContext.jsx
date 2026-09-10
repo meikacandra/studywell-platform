@@ -111,7 +111,7 @@ export const UserProvider = ({ children }) => {
       time: "Kemarin",
       type: "assessment",
       isUnread: false,
-      link: "/profile"
+      link: "/dashboard"
     }
   ]);
 

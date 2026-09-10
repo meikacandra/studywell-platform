@@ -257,131 +257,6 @@
 .line-red { background-color: #fca5a5; }
 .line-gray { background-color: #e2e8f0; }
 
-/* Bottom Two Columns */
-.bottom-two-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.column-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.35rem;
-}
-
-.header-title-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.column-title {
-  font-size: 1rem;
-  font-weight: 750;
-  color: #0f172a;
-}
-
-.info-gray { color: #94a3b8; }
-
-.column-subtitle {
-  font-size: 0.8rem;
-  color: #64748b;
-  margin-bottom: 1rem;
-}
-
-.mini-dropdown {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-  padding: 4px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.line-chart-wrapper {
-  width: 100%;
-  margin-top: 0.5rem;
-}
-
-.line-svg {
-  width: 100%;
-  height: auto;
-}
-
-/* Subtopic Progress List */
-.subtopic-progress-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 0.75rem;
-}
-
-.subtopic-progress-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.subtopic-item-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.subtopic-name-group {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.subtopic-code-badge {
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 800;
-}
-
-.subtopic-title-text {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-.subtopic-score-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.subtopic-val {
-  font-size: 0.88rem;
-  font-weight: 800;
-}
-
-.subtopic-status-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.subtopic-track-bg {
-  height: 7px;
-  background-color: #f1f5f9;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.subtopic-fill-bar {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
 /* Tree View Mode Styling */
 .tree-view-wrapper {
   display: flex;
@@ -579,9 +454,7 @@
     width: 2px;
     height: 24px;
   }
-  .bottom-two-columns {
-    grid-template-columns: 1fr;
-  }
+
   .tree-level-topics {
     grid-template-columns: 1fr;
   }
