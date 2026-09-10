@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Lock, Info, ArrowRight, ChevronDown, Map, LineChart } from "lucide-react";
+import { Lock, ArrowRight, ChevronDown, Map, LineChart } from "lucide-react";
 import { useUser } from "../context/UserContext";
 import { getUserMaterials } from "../data/studyWellData";
 import { getUserStudyMapData } from "../data/studyMapData";
@@ -18,23 +18,6 @@ const StudyMapping = () => {
   const materials = getUserMaterials(currentUser?.id);
   const userStudyMap = getUserStudyMapData(currentUser?.id);
   const { stats, topics, subjectName } = userStudyMap;
-
-  // Compute Weekly Mastery Averages for Dynamic Line Chart
-  const weeklyAvgs = [0, 1, 2, 3].map((weekIdx) => {
-    const validMats = materials.filter(m => m.history && m.history[weekIdx]);
-    if (validMats.length === 0) return 0;
-    const sum = validMats.reduce((acc, curr) => acc + curr.history[weekIdx].mastery, 0);
-    return Math.round(sum / validMats.length);
-  });
-
-  const chartPoints = [
-    { x: 50, y: Math.max(20, Math.min(140, 140 - (weeklyAvgs[0] / 100) * 120)) },
-    { x: 170, y: Math.max(20, Math.min(140, 140 - (weeklyAvgs[1] / 100) * 120)) },
-    { x: 290, y: Math.max(20, Math.min(140, 140 - (weeklyAvgs[2] / 100) * 120)) },
-    { x: 410, y: Math.max(20, Math.min(140, 140 - (weeklyAvgs[3] / 100) * 120)) }
-  ];
-
-  const svgPathD = `M ${chartPoints[0].x} ${chartPoints[0].y} L ${chartPoints[1].x} ${chartPoints[1].y} L ${chartPoints[2].x} ${chartPoints[2].y} L ${chartPoints[3].x} ${chartPoints[3].y}`;
 
   return (
     <div className="page-wrapper">
@@ -127,92 +110,6 @@ const StudyMapping = () => {
                       </React.Fragment>
                     );
                   })}
-                </div>
-              </div>
-
-              {/* BOTTOM TWO COLUMNS */}
-              <div className="bottom-two-columns">
-                {/* Left Column: Perkembangan Penguasaan Materi (Line Chart) */}
-                <div className="mapping-card chart-column-card">
-                  <div className="column-card-header">
-                    <div className="header-title-info">
-                      <h3 className="column-title">Perkembangan Penguasaan Materi</h3>
-                      <Info size={15} className="info-gray" />
-                    </div>
-                    <div className="mini-dropdown">
-                      <span>4 Minggu Terakhir</span>
-                      <ChevronDown size={13} />
-                    </div>
-                  </div>
-                  <p className="column-subtitle">Rata-rata pemahaman dari hasil asesmen dan latihan soal.</p>
-
-                  <div className="line-chart-wrapper">
-                    <svg className="line-svg" viewBox="0 0 450 180">
-                      <line x1="30" y1="20" x2="430" y2="20" stroke="#f1f5f9" />
-                      <line x1="30" y1="60" x2="430" y2="60" stroke="#f1f5f9" />
-                      <line x1="30" y1="100" x2="430" y2="100" stroke="#f1f5f9" />
-                      <line x1="30" y1="140" x2="430" y2="140" stroke="#e2e8f0" />
-
-                      <text x="15" y="24" fill="#94a3b8" fontSize="10">60</text>
-                      <text x="15" y="64" fill="#94a3b8" fontSize="10">45</text>
-                      <text x="15" y="104" fill="#94a3b8" fontSize="10">30</text>
-                      <text x="15" y="144" fill="#94a3b8" fontSize="10">15</text>
-                      <text x="15" y="174" fill="#94a3b8" fontSize="10">0</text>
-
-                      <text x="50" y="174" fill="#64748b" fontSize="10">0</text>
-                      <text x="170" y="174" fill="#64748b" fontSize="10">1</text>
-                      <text x="290" y="174" fill="#64748b" fontSize="10">2</text>
-                      <text x="410" y="174" fill="#64748b" fontSize="10">3</text>
-
-                      <path
-                        d={svgPathD}
-                        fill="none"
-                        stroke="#38bdf8"
-                        strokeWidth="2.5"
-                      />
-
-                      {chartPoints.map((pt, idx) => (
-                        <circle key={idx} cx={pt.x} cy={pt.y} r="4.5" fill="#ffffff" stroke="#38bdf8" strokeWidth="2" />
-                      ))}
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Right Column: Rincian Pemahaman Sub-Topik */}
-                <div className="mapping-card subtopics-column-card">
-                  <div className="column-card-header">
-                    <div className="header-title-info">
-                      <h3 className="column-title">Rincian Pemahaman Sub-Topik</h3>
-                      <Info size={15} className="info-gray" />
-                    </div>
-                  </div>
-
-                  <div className="subtopic-progress-list">
-                    {materials.map((mat) => (
-                      <div key={mat.id} className="subtopic-progress-item">
-                        <div className="subtopic-item-header">
-                          <div className="subtopic-name-group">
-                            <span className="subtopic-code-badge" style={{ backgroundColor: `${mat.color}15`, color: mat.color }}>
-                              {mat.code}
-                            </span>
-                            <span className="subtopic-title-text">{mat.name}</span>
-                          </div>
-
-                          <div className="subtopic-score-group">
-                            <span className="subtopic-val" style={{ color: mat.color }}>{mat.mastery}%</span>
-                            <span className="subtopic-status-label" style={{ color: mat.color }}>{mat.statusLabel}</span>
-                          </div>
-                        </div>
-
-                        <div className="subtopic-track-bg">
-                          <div
-                            className="subtopic-fill-bar"
-                            style={{ width: `${mat.mastery}%`, backgroundColor: mat.color }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
