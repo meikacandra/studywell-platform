@@ -22,8 +22,10 @@ function App() {
     <UserProvider>
       <BrowserRouter>
         <Routes>
+          {/* Halaman Utama (Landing Page) */}
+          <Route path="/" element={<Home />} />
+
           {/* Dashboard & Fitur Utama */}
-          <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/study-mapping" element={<StudyMapping />} />
           <Route path="/wellbeing" element={<Wellbeing />} />

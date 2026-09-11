@@ -6,8 +6,8 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Untuk sementara, setelah login langsung ke Assessment
-    navigate("/assessment");
+    // Setelah login langsung ke Dashboard Utama
+    navigate("/dashboard");
   };
 
   return (

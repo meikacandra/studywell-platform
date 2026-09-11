@@ -31,9 +31,9 @@ function Home() {
             Features
           </Link>
 
-          <Link to="/">
+          <a href="#about" style={{ color: "white", fontSize: "12px" }}>
             About Us
-          </Link>
+          </a>
         </div>
 
         {/* Buttons */}

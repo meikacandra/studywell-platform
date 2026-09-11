@@ -65,7 +65,7 @@ const Assessment = () => {
     <div className="assessment-wrapper">
       {/* Top Header Bar */}
       <header className="assessment-topbar">
-        <div className="topbar-logo-box" onClick={() => navigate("/")}>
+        <div className="topbar-logo-box" onClick={() => navigate("/dashboard")}>
           <div className="logo-icon-bg">
             <Hourglass size={18} className="hourglass-icon" />
           </div>

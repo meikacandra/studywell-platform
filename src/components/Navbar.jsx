@@ -49,13 +49,13 @@ const Navbar = () => {
   const notifRef = useRef(null);
 
   const navItems = [
-    { name: "Dashboard", path: "/" },
+    { name: "Dashboard", path: "/dashboard" },
     { name: "Learning Mapping & Progress", path: "/study-mapping" },
     { name: "Well-being", path: "/wellbeing" },
   ];
 
   const checkIsActive = (itemPath) => {
-    if (itemPath === "/") {
+    if (itemPath === "/dashboard" || itemPath === "/") {
       return path === "/" || path === "/dashboard";
     }
     if (itemPath === "/wellbeing") {
@@ -105,7 +105,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setIsDropdownOpen(false);
-    navigate("/login");
+    navigate("/");
   };
 
   const handleNotifClick = (notif) => {
@@ -121,7 +121,7 @@ const Navbar = () => {
       <header className="navbar-container">
         <div className="navbar-content">
           {/* Brand Logo */}
-          <Link to="/" className="navbar-brand">
+          <Link to="/dashboard" className="navbar-brand">
             <div className="logo-icon-wrapper">
               <Hourglass className="logo-icon" size={20} />
             </div>

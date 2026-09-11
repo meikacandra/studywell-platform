@@ -6,8 +6,8 @@ function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // Untuk sementara, setelah daftar langsung ke Login
-    navigate("/login");
+    // Pengguna baru diarahkan untuk melakukan Asesmen Awal terlebih dahulu
+    navigate("/assessment");
   };
 
   return (

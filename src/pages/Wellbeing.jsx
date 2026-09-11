@@ -442,7 +442,7 @@ const Wellbeing = () => {
                 {/* Action Buttons */}
                 <div className="action-buttons-row">
                   <button
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate("/dashboard")}
                     className="secondary-gray-btn"
                   >
                     Kembali ke Dashboard
